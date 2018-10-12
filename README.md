@@ -1,0 +1,1 @@
+# Stakhanov-Workinghours-Registry
