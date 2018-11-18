@@ -1,0 +1,17 @@
+hu\elte\Stakhanov\controller\CalendarController.class
+hu\elte\Stakhanov\security\AuthenticatedUser.class
+hu\elte\Stakhanov\security\WebSecurityConfig.class
+hu\elte\Stakhanov\StakhanovApplication.class
+hu\elte\Stakhanov\controller\PersonController.class
+hu\elte\Stakhanov\entities\Person.class
+hu\elte\Stakhanov\repositories\CalendarRepository.class
+hu\elte\Stakhanov\controller\RegistryController.class
+hu\elte\Stakhanov\entities\Registry.class
+hu\elte\Stakhanov\repositories\RegistryRepository.class
+hu\elte\Stakhanov\repositories\PersonRepository.class
+hu\elte\Stakhanov\entities\Team.class
+hu\elte\Stakhanov\controller\TeamController.class
+hu\elte\Stakhanov\entities\Calendar.class
+hu\elte\Stakhanov\repositories\TeamRepository.class
+hu\elte\Stakhanov\entities\Person$Role.class
+hu\elte\Stakhanov\security\MyUserDetailsService.class
