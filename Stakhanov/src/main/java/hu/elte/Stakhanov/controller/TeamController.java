@@ -15,9 +15,15 @@ import hu.elte.Stakhanov.repositories.RegistryRepository;
 import hu.elte.Stakhanov.repositories.TeamRepository;
 import hu.elte.Stakhanov.security.AuthenticatedUser;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -68,8 +74,28 @@ public class TeamController {
         Person.Role role = person.getRole();
         
         if (team.isPresent() && (role.equals(Person.Role.ROLE_ADMIN)
-            || team.get().getBoss().getId().equals(person.getId()))) {
+            || isPersonInListById(person, team.get().getTeam_mates()))) {
             return ResponseEntity.ok(team.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    @GetMapping("/{id}/teammates")
+    public ResponseEntity<Iterable<publicPerson>> getTeammates(@PathVariable Integer id) {
+        Optional<Team> team = teamRepository.findById(id);
+        Person person = authenticatedUser.getPerson();
+        Person.Role role = person.getRole();
+        
+        if (team.isPresent() && (role.equals(Person.Role.ROLE_ADMIN)
+            || isPersonInListById(person, team.get().getTeam_mates()))) {
+            
+            List<publicPerson> people = new ArrayList<>();
+            
+            for(Person p : team.get().getTeam_mates()){
+                people.add(new publicPerson(p.getFullname(), p.getEducation(), p.getBirth_date(), p.getPos()));
+            }
+            return ResponseEntity.ok(people);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -94,7 +120,7 @@ public class TeamController {
         Person.Role role = person.getRole();
         
         if (oTeamEntity.isPresent() && (role.equals(Person.Role.ROLE_ADMIN)
-            || oTeamEntity.get().getBoss().getId().equals(person.getId()))) {
+            || isPersonInListById(person, oTeamEntity.get().getTeam_mates()))) {
             team.setId(id);
             return ResponseEntity.ok(teamRepository.save(team));
         } else {
@@ -167,5 +193,17 @@ public class TeamController {
         }
         
         return b;
+    }
+    
+    
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @EqualsAndHashCode
+    class publicPerson{
+        private String name;
+        private String education;
+        private Date birthDate;
+        private String position;
     }
 }
