@@ -2,6 +2,7 @@ hu\elte\Stakhanov\controller\CalendarController.class
 hu\elte\Stakhanov\security\AuthenticatedUser.class
 hu\elte\Stakhanov\security\WebSecurityConfig.class
 hu\elte\Stakhanov\StakhanovApplication.class
+hu\elte\Stakhanov\controller\TeamController$publicPerson.class
 hu\elte\Stakhanov\controller\PersonController.class
 hu\elte\Stakhanov\entities\Person.class
 hu\elte\Stakhanov\repositories\CalendarRepository.class

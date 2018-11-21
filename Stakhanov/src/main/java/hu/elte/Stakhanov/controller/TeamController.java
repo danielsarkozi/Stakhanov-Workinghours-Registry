@@ -11,6 +11,7 @@ import hu.elte.Stakhanov.entities.Person;
 import hu.elte.Stakhanov.entities.Registry;
 import hu.elte.Stakhanov.entities.Team;
 import hu.elte.Stakhanov.repositories.CalendarRepository;
+import hu.elte.Stakhanov.repositories.PersonRepository;
 import hu.elte.Stakhanov.repositories.RegistryRepository;
 import hu.elte.Stakhanov.repositories.TeamRepository;
 import hu.elte.Stakhanov.security.AuthenticatedUser;
@@ -52,6 +53,9 @@ public class TeamController {
     @Autowired
     private RegistryRepository registryRepository;
     
+    @Autowired
+    private PersonRepository personRepository;
+    
     @Autowired 
     private AuthenticatedUser authenticatedUser;
     
@@ -63,7 +67,14 @@ public class TeamController {
         if (role.equals(Person.Role.ROLE_ADMIN)) {
             return ResponseEntity.ok(teamRepository.findAll());
         } else{
-            return ResponseEntity.ok(teamRepository.findAllByBoss(person));
+            List<Team> teams = new ArrayList<>();
+            for (Team t : teamRepository.findAll()){
+                System.out.println(t.getTeam_name());
+                if(isPersonInListById(person, t.getTeam_mates())){
+                    teams.add(t);
+                }
+            }
+            return ResponseEntity.ok(teams);
         }
     }
     
@@ -104,12 +115,21 @@ public class TeamController {
     @PostMapping("")
     public ResponseEntity<Team> post(@RequestBody Team team) {
         Person person = authenticatedUser.getPerson();
+        
         Calendar calendar = new Calendar();
         calendarRepository.save(calendar);
         calendar.setTeam(team);
+
         team.setCalendar(calendar);
         team.setBoss(person);
+        team.addTeam_mates(person);
+        
+        person.addSub_teams(team);
+        person.addCo_teams(team);
+        
         Team savedTeamEntity = teamRepository.save(team);
+        personRepository.save(person);
+        
         return ResponseEntity.ok(savedTeamEntity);
     }
     
@@ -187,6 +207,7 @@ public class TeamController {
         boolean b = false;
         
         for (Person p : list){
+            System.out.println(p.getId() + "   " + person.getId());
             if (Objects.equals(p.getId(), person.getId())){
                 b = true;
             }

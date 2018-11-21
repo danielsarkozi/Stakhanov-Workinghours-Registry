@@ -1,6 +1,7 @@
 insert into person(username, password, enabled, role, fullname, education, birth_date, pos) values ('admin', '$2a$04$YDiv9c./ytEGZQopFfExoOgGlJL6/o0er0K.hiGb5TGKHUL8Ebn..', true, 'ROLE_ADMIN', 'Horthy Miklos', 'az elet iskolaja', '1868-06-18', 'kormanyzo');
 insert into person(username, password, enabled, role, fullname, education, birth_date, pos) values ('user1', '$2a$04$YDiv9c./ytEGZQopFfExoOgGlJL6/o0er0K.hiGb5TGKHUL8Ebn..', true, 'ROLE_USER', 'Jeno', 'erettsegi', '1967-02-01', 'muszakvezeto');
 insert into person(username, password, enabled, role, fullname, education, birth_date, pos) values ('user2', '$2a$04$YDiv9c./ytEGZQopFfExoOgGlJL6/o0er0K.hiGb5TGKHUL8Ebn..', true, 'ROLE_USER', 'Bela', '8 altalanos', '1969-09-01', 'CRC-maros');
+insert into person(username, password, enabled, role, fullname, education, birth_date, pos) values ('dummy', '$2a$04$YDiv9c./ytEGZQopFfExoOgGlJL6/o0er0K.hiGb5TGKHUL8Ebn..', true, 'ROLE_USER', 'Dummy', 'asd', '1969-09-01', 'asd');
 
 insert into team(boss_id, team_name, workplace) values (2, 'CRC-marosok', 'Weiss-muvek');
 

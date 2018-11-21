@@ -7,6 +7,7 @@ package hu.elte.Stakhanov.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -61,6 +62,10 @@ public class Team implements Serializable {
     
     @JsonIgnore
     @ManyToMany(mappedBy = "co_teams")
-    private List<Person> team_mates;
+    private List<Person> team_mates = new ArrayList<>();
+    
+    public void addTeam_mates(Person p){
+        team_mates.add(p);
+    }
 }
 
