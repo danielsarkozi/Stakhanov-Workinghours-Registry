@@ -27,6 +27,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,7 +70,7 @@ public class TeamController {
         } else{
             List<Team> teams = new ArrayList<>();
             for (Team t : teamRepository.findAll()){
-                System.out.println(t.getTeam_name());
+                //System.out.println(t.getTeam_name());
                 if(isPersonInListById(person, t.getTeam_mates())){
                     teams.add(t);
                 }
@@ -112,6 +113,7 @@ public class TeamController {
         }
     }
     
+
     @PostMapping("")
     public ResponseEntity<Team> post(@RequestBody Team team) {
         Person person = authenticatedUser.getPerson();
@@ -119,13 +121,18 @@ public class TeamController {
         Calendar calendar = new Calendar();
         calendarRepository.save(calendar);
         calendar.setTeam(team);
+        //calendarRepository.save(calendar);
 
         team.setCalendar(calendar);
         team.setBoss(person);
         team.addTeam_mates(person);
         
-        person.addSub_teams(team);
-        person.addCo_teams(team);
+        //person.addSub_teams(team);
+        //person.addCo_teams(team);
+        
+        person.getSub_teams().add(team);
+        person.getCo_teams().add(team);
+        
         
         Team savedTeamEntity = teamRepository.save(team);
         personRepository.save(person);
@@ -143,6 +150,31 @@ public class TeamController {
             || isPersonInListById(person, oTeamEntity.get().getTeam_mates()))) {
             team.setId(id);
             return ResponseEntity.ok(teamRepository.save(team));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    @PostMapping("/{id}/registry")
+    public ResponseEntity<Registry> postRegistry(@RequestBody Registry registry, @PathVariable Integer id){
+        Person person = authenticatedUser.getPerson();
+        Person.Role role = person.getRole();
+        Optional<Team> oTeamEntity = teamRepository.findById(id);
+        
+        if (oTeamEntity.isPresent() && (role.equals(Person.Role.ROLE_ADMIN)
+            || isPersonInListById(person, oTeamEntity.get().getTeam_mates()))) {
+            
+            Calendar calendar = oTeamEntity.get().getCalendar();
+            
+            person.addRegistry(registry);
+            registry.setOwner(person);
+            
+            registry.setCalendar(calendar);
+            calendar.addRegistries(registry);
+            
+            personRepository.save(person);
+            calendarRepository.save(calendar);
+            return ResponseEntity.ok(registryRepository.save(registry));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -207,7 +239,7 @@ public class TeamController {
         boolean b = false;
         
         for (Person p : list){
-            System.out.println(p.getId() + "   " + person.getId());
+            //System.out.println(p.getId() + "   " + person.getId());
             if (Objects.equals(p.getId(), person.getId())){
                 b = true;
             }

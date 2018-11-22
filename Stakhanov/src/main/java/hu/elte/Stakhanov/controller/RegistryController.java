@@ -7,8 +7,13 @@ package hu.elte.Stakhanov.controller;
 
 import hu.elte.Stakhanov.entities.Person;
 import hu.elte.Stakhanov.entities.Registry;
+import hu.elte.Stakhanov.entities.Team;
+import hu.elte.Stakhanov.repositories.PersonRepository;
 import hu.elte.Stakhanov.repositories.RegistryRepository;
 import hu.elte.Stakhanov.security.AuthenticatedUser;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +36,9 @@ public class RegistryController {
     @Autowired
     private RegistryRepository registryRepository;
     
+    @Autowired
+    private PersonRepository personRepository;
+    
     @Autowired 
     private AuthenticatedUser authenticatedUser;
     
@@ -43,7 +51,7 @@ public class RegistryController {
         if (role.equals(Person.Role.ROLE_ADMIN)) {
             return ResponseEntity.ok(registryRepository.findAll());
         }else{
-            return ResponseEntity.ok(registryRepository.findAllByOwner(person));
+            return ResponseEntity.ok(person.getRegistry());
         }
         
     }
@@ -65,8 +73,14 @@ public class RegistryController {
         }
     }
     
+    //nem szükséges 
     @PostMapping("")
     public ResponseEntity<Registry> post(@RequestBody Registry registry) {
+        Person person = authenticatedUser.getPerson();
+        person.addRegistry(registry);
+        registry.setOwner(person);
+        
+        personRepository.save(person);
         Registry savedRegistryEntity = registryRepository.save(registry);
         return ResponseEntity.ok(savedRegistryEntity);
     }
@@ -96,5 +110,18 @@ public class RegistryController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    
+    boolean isPersonInListById(Person person, List<Person> list){
+        boolean b = false;
+        
+        for (Person p : list){
+            //System.out.println(p.getId() + "   " + person.getId());
+            if (Objects.equals(p.getId(), person.getId())){
+                b = true;
+            }
+        }
+        
+        return b;
     }
 }

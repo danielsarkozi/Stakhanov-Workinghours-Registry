@@ -56,4 +56,8 @@ public class Calendar implements Serializable {
     @JsonIgnore
     @JoinColumn
     private Team team;
+    
+    public void addRegistries(Registry r){
+        registries.add(r);
+    }
 }

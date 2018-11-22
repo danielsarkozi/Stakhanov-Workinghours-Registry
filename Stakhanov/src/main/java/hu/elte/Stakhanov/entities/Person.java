@@ -28,6 +28,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -80,7 +81,7 @@ public class Person implements Serializable{
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "boss")
     private List<Team> sub_teams;
     
-    @OneToMany(mappedBy = "owner")
+    @OneToMany( mappedBy = "owner")
     private List<Registry> registry;
     
     public void addCo_teams(Team t){
@@ -89,5 +90,9 @@ public class Person implements Serializable{
     
     public void addSub_teams(Team t){
         sub_teams.add(t);
+    }
+    
+    public void addRegistry(Registry r){
+        registry.add(r);
     }
 }
