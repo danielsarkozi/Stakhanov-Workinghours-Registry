@@ -27,30 +27,30 @@ Végpontok:
 A végpontokra általánosan igaz, hogy a megtekinthetőségnél egy adott felhasználó, csak a saját érdekeltségébe tartozó adatokat láthatja.
 (pl. egy alap felhasználó, csak az saját csapatához tartozó naptárat tudja megtekinteni, de egy admin az összes létrehozottat)
 
-  GET:
-    - /calendars - Az összes felhasználói érdekeltségbe tartozó naptár megtekintése
-    - /calendars/{id} - Adott id-val rendelkező naptár megtekintése
-    - /calendars/{id}/registries - Adott naptárhoz tartozó összes bejegyzés megtekintése
-    - /teams - Az összes olyan munkakört kilistázza, amelyben az adott felhasználó tag
-    - /teams/{id} - Adott id-val rendelkező munkakört adja meg
-    - /teams/{id}/teammates - Visszaadja az adott id-val rendelkező munkakörbe tartozó felhasználó összes publikus adatát
-    - /teams/{id}/calendar - Megmutatja az adott id-val rendelkező munkakörhöz tartozó naptárat
-    - /registries - Visszaadja az adott felhasználóhoz tartozó összes bejegyzést
-    - /registries/{id} - Megmutatja az adott id-val rendelkező bejegyzést
-  POST:
-    - /login - bejelentkezés
-    - /register - regisztálás
-    - /calendars - Létrehoz egy naptárat(nem fontos, mert a munkakör létrehozásával, automatikusan generálódik egy)
-    - /calendars/{id}/registries - Egy naptárban elhelyez egy bejegyzést
-    - /teams - Létrehoz egy munkakört, valamint egy hozzátartozó naptárat
-    - /teams/{id}/registry - Közzétesz egy bejegyzést, az adott id-val rendelkező munkakör naptárjában
-    - /teams/{id}/calendar - Létrehoz egy naptárat az adott id-hoz tartozó munkakörben(nem fontos, mert a munkakör létrehozásával, automatikusan generálódik egy)
-    - /registries - Létrehoz egy bejegyzést (vannak rá kézenfekvőbb végpontok is más kontrollerekben)
-  PUT:
-    - /calendars/{id} - Adott id-hoz tartozó naptár módosítása
-    - /teams/{id} - Adott id-hoz tartozó munkakör módosítása
-    - /registries/{id} - Adott id-hoz tartozó bejegyzés módosítása
-  DELETE:
-    - /calendars/{id} - Naptár törlése amihez az id tartozik. A naptárral együtt törlődnek a bejegyzések is
-    - /teams/{id} - Adott munkakör törlése (id). A munkakörrel együtt törlődik a naptár illetve az ahhoz tartozó bejegyzések is
-    - /registries/{id0} - Adott id-val rendelkező bejegyzés törlése
+ - GET:
+  - /calendars - Az összes felhasználói érdekeltségbe tartozó naptár megtekintése
+  - /calendars/{id} - Adott id-val rendelkező naptár megtekintése
+  - /calendars/{id}/registries - Adott naptárhoz tartozó összes bejegyzés megtekintése
+  - /teams - Az összes olyan munkakört kilistázza, amelyben az adott felhasználó tag
+  - /teams/{id} - Adott id-val rendelkező munkakört adja meg
+  - /teams/{id}/teammates - Visszaadja az adott id-val rendelkező munkakörbe tartozó felhasználó összes publikus adatát
+  - /teams/{id}/calendar - Megmutatja az adott id-val rendelkező munkakörhöz tartozó naptárat
+  - /registries - Visszaadja az adott felhasználóhoz tartozó összes bejegyzést
+  - /registries/{id} - Megmutatja az adott id-val rendelkező bejegyzést
+ - POST:
+  - /login - bejelentkezés
+  - /register - regisztálás
+  - /calendars - Létrehoz egy naptárat(nem fontos, mert a munkakör létrehozásával, automatikusan generálódik egy)
+  - /calendars/{id}/registries - Egy naptárban elhelyez egy bejegyzést
+  - /teams - Létrehoz egy munkakört, valamint egy hozzátartozó naptárat
+  - /teams/{id}/registry - Közzétesz egy bejegyzést, az adott id-val rendelkező munkakör naptárjában
+  - /teams/{id}/calendar - Létrehoz egy naptárat az adott id-hoz tartozó munkakörben(nem fontos, mert a munkakör létrehozásával, automatikusan generálódik egy)
+  - /registries - Létrehoz egy bejegyzést (vannak rá kézenfekvőbb végpontok is más kontrollerekben)
+ - PUT:
+  - /calendars/{id} - Adott id-hoz tartozó naptár módosítása
+  - /teams/{id} - Adott id-hoz tartozó munkakör módosítása
+  - /registries/{id} - Adott id-hoz tartozó bejegyzés módosítása
+ - DELETE:
+  - /calendars/{id} - Naptár törlése amihez az id tartozik. A naptárral együtt törlődnek a bejegyzések is
+  - /teams/{id} - Adott munkakör törlése (id). A munkakörrel együtt törlődik a naptár illetve az ahhoz tartozó bejegyzések is
+  - /registries/{id0} - Adott id-val rendelkező bejegyzés törlése
