@@ -18,3 +18,7 @@ Szerepkörök:
  - felhasználó - készíthet bejegyzést; megjegyzést fűzhet; profilokat tekinthet meg
  - vendég - regisztrálhat az oldalon
  
+Adatbázis model:
+
+![alt text](https://github.com/danielsarkozi/Stakhanov-Workinghours-Registry/blob/master/dbmodel.PNG)
+
