@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author lokos
  */
+@CrossOrigin
 @RestController
 @RequestMapping("registries")
 public class RegistryController {
@@ -73,7 +75,6 @@ public class RegistryController {
         }
     }
     
-    //nem szükséges 
     @PostMapping("")
     public ResponseEntity<Registry> post(@RequestBody Registry registry) {
         Person person = authenticatedUser.getPerson();
