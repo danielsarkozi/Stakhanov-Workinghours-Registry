@@ -5,7 +5,7 @@ A projektünk célja, egy munkaidő nyilvántartó alkalmazás kidolgozása és 
 Funkcionális követelmények, szakkifejezések:
  - Munkakörök (Team) - mivel online alkalmazást fejlesztünk, így több különböző cég is igénybeveheti a szolgáltatásunkat. Amikor egy cég (admin) regisztrál az oldalra, akkor egy munkakört hoz létre, amelyhez csatlakozhatnak az alkalmazottak. Ehhez tartozik egy naptár, amelyet a felhasználók maguk szerkeszthetnek.
  - Naptár     (Calendar) - a munkavállalók megtekinthetik a szabad, illetve már lefoglalt napokat, továbbá megjelölhetik a a számukra megfelelő dátumot a munkaelvégzésére.
- - Bejegyzés  (Registry) - A naptáron bejegyzések tehetők közzé, a munkavállaló nevével, az elvállalt munka dátumával és időtartamával. Fűzhető megjegyzés bármely bejegyzéshez a felhasználók által, illetve lehetőség van időpontcserét igényelni.
+ - Bejegyzés  (Registry) - A naptáron bejegyzések tehetők közzé, a munkavállaló nevével, az elvállalt munka dátumával és időtartamával. Fűzhető megjegyzés bármely bejegyzéshez a felhasználók által.
  - Lehetőség van a saját profil szerkesztésére, illetve a munkakörön belüli profilok megtekintésére.
 
 Nem funkcionális követelmények:
