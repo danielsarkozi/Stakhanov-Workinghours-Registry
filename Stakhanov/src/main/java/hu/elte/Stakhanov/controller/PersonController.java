@@ -7,10 +7,12 @@ package hu.elte.Stakhanov.controller;
 
 import hu.elte.Stakhanov.entities.Person;
 import hu.elte.Stakhanov.repositories.PersonRepository;
+import hu.elte.Stakhanov.security.AuthenticatedUser;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author lokos
  */
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("people")
 public class PersonController {
@@ -31,7 +33,10 @@ public class PersonController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     
-    @PostMapping("register")
+    @Autowired 
+    private AuthenticatedUser authenticatedUser;
+    
+    @PostMapping("/register")
     public ResponseEntity<Person> register(@RequestBody Person user) {
         Optional<Person> oUser = personRepository.findByUsername(user.getUsername());
         if (oUser.isPresent()) {
@@ -44,7 +49,7 @@ public class PersonController {
     }
 
     @PostMapping("login")
-    public ResponseEntity login(@RequestBody Person user) {
-        return ResponseEntity.ok().build();
-    } 
+    public ResponseEntity login() {
+        return ResponseEntity.ok(authenticatedUser.getPerson());
+    }
 }

@@ -82,6 +82,7 @@ public class Person implements Serializable{
     private List<Team> sub_teams;
     
     @OneToMany( mappedBy = "owner")
+    @JsonIgnore
     private List<Registry> registry;
     
     public void addCo_teams(Team t){

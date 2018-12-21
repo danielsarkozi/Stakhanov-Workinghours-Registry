@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author lokos
  */
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("teams")
 public class TeamController {
@@ -67,7 +67,8 @@ public class TeamController {
         Person person = authenticatedUser.getPerson();
         Person.Role role = person.getRole();
         //System.out.println(role.equals(Person.Role.ROLE_ADMIN));
-        if (role.equals(Person.Role.ROLE_ADMIN)) {
+        return ResponseEntity.ok(teamRepository.findAll());
+        /*if (role.equals(Person.Role.ROLE_ADMIN)) {
             return ResponseEntity.ok(teamRepository.findAll());
         } else{
             List<Team> teams = new ArrayList<>();
@@ -78,7 +79,7 @@ public class TeamController {
                 }
             }
             return ResponseEntity.ok(teams);
-        }
+        }*/
     }
     
     @GetMapping("/{id}")
@@ -140,6 +141,24 @@ public class TeamController {
         personRepository.save(person);
         
         return ResponseEntity.ok(savedTeamEntity);
+    }
+    
+    @PostMapping("/{id}/user")
+    public ResponseEntity<Person> post(@PathVariable Integer id){
+        Optional<Team> oTeam = teamRepository.findById(id);
+        Person person = authenticatedUser.getPerson();
+        if (oTeam.isPresent()){
+            Team team = oTeam.get();
+            if(!isPersonInListById(person, team.getTeam_mates())){
+                team.addTeam_mates(person);
+                person.addCo_teams(team);
+
+                teamRepository.save(team);
+                Person savedPerson = personRepository.save(person);
+                return ResponseEntity.ok(savedPerson);
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
     
     @PutMapping("/{id}")
