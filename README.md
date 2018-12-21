@@ -45,6 +45,7 @@ A végpontokra általánosan igaz, hogy a megtekinthetőségnél egy adott felha
   - /teams - Létrehoz egy munkakört, valamint egy hozzátartozó naptárat
   - /teams/{id}/registry - Közzétesz egy bejegyzést, az adott id-val rendelkező munkakör naptárjában
   - /teams/{id}/calendar - Létrehoz egy naptárat az adott id-hoz tartozó munkakörben(nem fontos, mert a munkakör létrehozásával, automatikusan generálódik egy)
+  - /teams/{id}/user - Hozzáad egy usert az adott csapathoz
   - /registries - Létrehoz egy bejegyzést (vannak rá kézenfekvőbb végpontok is más kontrollerekben)
 - PUT:
   - /calendars/{id} - Adott id-hoz tartozó naptár módosítása
