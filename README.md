@@ -5,7 +5,7 @@ A projektünk célja, egy munkaidő nyilvántartó alkalmazás kidolgozása és 
 Funkcionális követelmények, szakkifejezések:
  - Munkakörök (Team) - mivel online alkalmazást fejlesztünk, így több különböző cég is igénybeveheti a szolgáltatásunkat. Amikor egy cég (admin) regisztrál az oldalra, akkor egy munkakört hoz létre, amelyhez csatlakozhatnak az alkalmazottak. Ehhez tartozik egy naptár, amelyet a felhasználók maguk szerkeszthetnek.
  - Naptár     (Calendar) - a munkavállalók megtekinthetik a szabad, illetve már lefoglalt napokat, továbbá megjelölhetik a a számukra megfelelő dátumot a munkaelvégzésére.
- - Bejegyzés  (Registry) - A naptáron bejegyzések tehetők közzé, a munkavállaló nevével, az elvállalt munka dátumával és időtartamával. Fűzhető megjegyzés bármely bejegyzéshez a felhasználók által, illetve lehetőség van időpontcserét igényelni.
+ - Bejegyzés  (Registry) - A naptáron bejegyzések tehetők közzé, a munkavállaló nevével, az elvállalt munka dátumával és időtartamával. Fűzhető megjegyzés bármely bejegyzéshez a felhasználók által.
  - Lehetőség van a saját profil szerkesztésére, illetve a munkakörön belüli profilok megtekintésére.
 
 Nem funkcionális követelmények:
@@ -45,6 +45,7 @@ A végpontokra általánosan igaz, hogy a megtekinthetőségnél egy adott felha
   - /teams - Létrehoz egy munkakört, valamint egy hozzátartozó naptárat
   - /teams/{id}/registry - Közzétesz egy bejegyzést, az adott id-val rendelkező munkakör naptárjában
   - /teams/{id}/calendar - Létrehoz egy naptárat az adott id-hoz tartozó munkakörben(nem fontos, mert a munkakör létrehozásával, automatikusan generálódik egy)
+  - /teams/{id}/user - Hozzáad egy usert az adott csapathoz
   - /registries - Létrehoz egy bejegyzést (vannak rá kézenfekvőbb végpontok is más kontrollerekben)
 - PUT:
   - /calendars/{id} - Adott id-hoz tartozó naptár módosítása
