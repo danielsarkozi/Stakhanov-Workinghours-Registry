@@ -47,8 +47,8 @@ public class Registry implements Serializable {
     private Calendar calendar;
     
     @ManyToOne
-    @JsonIgnore
     @JoinColumn
+    @JsonIgnore
     private Person owner;
     
     @Column

@@ -45,6 +45,7 @@ public class Calendar implements Serializable {
     
     
     @OneToMany(mappedBy = "calendar")
+    @JsonIgnore
     private List<Registry> registries;
     
     @Column(updatable = false)

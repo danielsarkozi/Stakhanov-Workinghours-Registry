@@ -18,6 +18,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -80,6 +81,7 @@ public class Person implements Serializable{
     
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "boss")
     private List<Team> sub_teams;
+    
     
     @OneToMany( mappedBy = "owner")
     @JsonIgnore
