@@ -53,7 +53,7 @@ public class RegistryController {
         if (role.equals(Person.Role.ROLE_ADMIN)) {
             return ResponseEntity.ok(registryRepository.findAll());
         }else{
-            return ResponseEntity.ok(person.getRegistry());
+            return ResponseEntity.ok(registryRepository.findAllByOwner(person));
         }
         
     }

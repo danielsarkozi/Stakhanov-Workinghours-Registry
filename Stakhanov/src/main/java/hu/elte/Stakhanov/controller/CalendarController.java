@@ -8,9 +8,11 @@ package hu.elte.Stakhanov.controller;
 import hu.elte.Stakhanov.entities.Calendar;
 import hu.elte.Stakhanov.entities.Person;
 import hu.elte.Stakhanov.entities.Registry;
+import hu.elte.Stakhanov.entities.Team;
 import hu.elte.Stakhanov.repositories.CalendarRepository;
 import hu.elte.Stakhanov.repositories.RegistryRepository;
 import hu.elte.Stakhanov.security.AuthenticatedUser;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -47,11 +49,17 @@ public class CalendarController {
     public ResponseEntity<Iterable<Calendar>> getAll() {
         Person person = authenticatedUser.getPerson();
         Person.Role role = person.getRole();
-        //System.out.println(role.equals(Person.Role.ROLE_ADMIN));
+        
+        
+        
         if (role.equals(Person.Role.ROLE_ADMIN)) {
             return ResponseEntity.ok(calendarRepository.findAll());
         }else{
-            return ResponseEntity.notFound().build();
+            List<Calendar> calendarList = new ArrayList<>();
+            for (Team t : person.getCo_teams()){
+                calendarList.add(t.getCalendar());
+            }
+            return ResponseEntity.ok(calendarList);
         }
     }
     
